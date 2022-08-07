@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${pageTitle}">E2Tech</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{/common/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/data_table.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/gps-locator.css}" type="text/css">
+
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+
+    <!--   Leaflet Css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+          integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+          crossorigin=""/>
+
+    <style>
+        #map {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div th:replace="fragments/navbar :: left-navbar"></div>
+<div class="content">
+    <div class="header">
+    <div class="col-12">
+        <div th:replace="fragments/data-table :: data-table"></div>
+        <div th:replace="fragments/data-table :: table-pagination"></div>
+    </div>
+    <div class="row maps p-4">
+        <div class="col-2" id="picking">
+            <b>City: </b><p class="select-city"></p>
+            <b>District: </b><p class="select-district"></p>
+            <b>Ward: </b><p class="select-ward-p"></p>
+            <b>street: </b><p class="select-street"></p>
+            <b>HomeNo: </b><p class="select-home"></p>
+            <p>
+                latitude: <span class="select-lat"></span>°<br/>
+                longitude: <span class="select-lng"></span>° <br/>
+            </p>
+        </div>
+        <div class="col-2" id="arriving">
+            <b>City: </b><p class="select-city"></p>
+            <b>District: </b><p class="select-district"></p>
+            <b>Ward: </b><p class="select-ward-p"></p>
+            <b>street: </b><p class="select-street"></p>
+            <b>HomeNo: </b><p class="select-home"></p>
+            <p>
+                latitude: <span class="select-lat"></span>°<br/>
+                longitude: <span class="select-lng"></span>° <br/>
+            </p>
+        </div>
+        <div class="col-6 ml-2">
+            <div id="map"></div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- Js Plugins -->
+<div th:replace="fragments/footer :: script"></div>
+<script th:src="@{/js/home-navbar.js}"></script>
+
+<!-- Leaflet's js -->
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+
+<script type="module" th:src="@{/js/gps-locator.js}"></script>
+
+
+</body>
+
+</html>

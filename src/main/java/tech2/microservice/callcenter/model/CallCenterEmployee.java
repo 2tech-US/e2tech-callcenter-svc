@@ -1,13 +1,13 @@
 package tech2.microservice.callcenter.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,7 +17,7 @@ public class CallCenterEmployee {
     private Long id;
 
     @Column(unique = true)
-    private Long accountId;
+    private String accountId;
 
     @NotEmpty(message = "The username can be empty")
     private String name;
@@ -25,5 +25,7 @@ public class CallCenterEmployee {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<CallCenterRole> roles = new ArrayList<>();
+
+    private static final List<String> invisibleFields =  List.of("id", "accountId");
 }
 
