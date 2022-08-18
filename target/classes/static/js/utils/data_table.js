@@ -1,5 +1,5 @@
 const pageConfig = {
-    limit: 6,
+    limit: 10,
     page: 1,
     totalPage: undefined,
     displayPage: 1, 
@@ -74,17 +74,17 @@ const pageConfig = {
     $(".table-data").removeClass("table-loaded");
     console.log("table get items:");
     let res = await pageConfig.getItemsMethods();
+  
     pageConfig.items = [];
-    pageConfig.totalPage = res["total-pages"];
-    for (let i = 0; i < res.items.length; i++) {
-      pageConfig.items.push(res.items[i]);
-    }
-    console.log("push items completed");
-    pageConfig.page = res["current-page"];
+    pageConfig.totalPage = Math.ceil(res["total"]/pageConfig.limit);
+    if(res.items)
+      for (let i = 0; i < res.items.length; i++) {
+        pageConfig.items.push(res.items[i]);
+      }
+    // pageConfig.page = res["current-page"];
     console.log(pageConfig.page);
     renderTable();
     renderPagination();
-    console.log("Render Completed");
     $(".table-data").removeClass("table-loading");
     $(".table-data").addClass("table-loaded");
     console.log("Remove Loading");

@@ -157,7 +157,7 @@ $(".fetch-address").click(async function () {
     let fetchInfo = handleSearch();
 try {
     const data = await APIService.searchAddress({page: 1, limit: 20,search:fetchInfo.search});
-    appendDataList(data.result,fetchInfo.datalist);
+    appendDataList(data.items,fetchInfo.datalist);
 } catch (err) {
     console.log(err);
 }
@@ -167,7 +167,7 @@ try {
 $(".fetch-phone").click(async function () {
 try {
     const data = await APIService.fetchRequests({page: page, limit: limit});
-    let phones = data.requests.map(function(request) {
+    let phones = data.items.map(function(request) {
         return request['phone'];
     })
     phones = phones.filter(function(value, index,self) {
