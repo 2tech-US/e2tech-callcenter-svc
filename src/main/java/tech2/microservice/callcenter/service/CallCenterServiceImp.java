@@ -2,15 +2,12 @@ package tech2.microservice.callcenter.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech2.microservice.callcenter.exception.NotFoundException;
 import tech2.microservice.callcenter.model.CallCenterEmployee;
-import tech2.microservice.callcenter.model.CallCenterRequest;
 import tech2.microservice.callcenter.model.CallCenterRole;
 import tech2.microservice.callcenter.repository.CallCenterEmployeeRepo;
-import tech2.microservice.callcenter.repository.CallCenterRequestRepo;
 import tech2.microservice.callcenter.repository.CallCenterRoleRepo;
 
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ public class CallCenterServiceImp implements CallCenterService{
 
     private final CallCenterEmployeeRepo employeeRepo;
     private final CallCenterRoleRepo roleRepo;
-    private final CallCenterRequestRepo requestRepo;
     @Override
     public boolean isAccountExist(String accountId) {
         return employeeRepo.existsByAccountId(accountId);
@@ -101,37 +97,4 @@ public class CallCenterServiceImp implements CallCenterService{
         employeeRepo.save(employee);
     }
 
-    @Override
-    public CallCenterRequest createRequest(CallCenterRequest callCenterRequest) {
-        //TODO: Create arriving location and picking location in location service
-        return requestRepo.save(callCenterRequest);
-    }
-
-    @Override
-    public CallCenterRequest getRequest(Long requestId) {
-        Optional<CallCenterRequest> callCenterRequest = requestRepo.findById(requestId);
-        if(callCenterRequest.isEmpty()) {
-            throw new NotFoundException("Request " + requestId + " Not found");
-        }
-        else return callCenterRequest.get();
-    }
-
-    @Override
-    public List<CallCenterRequest> getRequests() {
-        return requestRepo.findAll();
-    }
-
-    @Override
-    public List<CallCenterRequest> getRequestByPhone(String phone) {
-        return requestRepo.findByPhone(phone);
-    }
-
-    @Override
-    public void updateRequestState(Long requestId, String driverId, Long cabId, String state) {
-        CallCenterRequest callCenterRequest = this.getRequest(requestId);
-        callCenterRequest.setDriverId(driverId);
-        callCenterRequest.setCabId(cabId);
-        callCenterRequest.setRequestState(state);
-        requestRepo.save(callCenterRequest);
-    }
 }

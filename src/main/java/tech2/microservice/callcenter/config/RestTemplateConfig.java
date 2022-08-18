@@ -14,7 +14,4 @@ public class RestTemplateConfig {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
-//    ResponseObject isVip = (restTemplate.getForObject("http://ADMIN/api/v1/example2/isExist/" + id, ResponseObject.class));
-
 }
