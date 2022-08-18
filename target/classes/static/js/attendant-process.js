@@ -1,6 +1,9 @@
 import APIService from "./utils/api_service.js";
 import {validateUserEmail,validateStringField} from "./utils/validate.js";
 
+const limit = 10;
+const page = 1;
+
 let next_click=document.querySelectorAll(".next_button");
 let main_form=document.querySelectorAll(".main");
 let step_list = document.querySelectorAll(".progress-bar li");
@@ -78,7 +81,6 @@ let step_num_content=document.querySelectorAll(".step-number-content");
      });
      step_num_content[formnumber].classList.add('active');
 
-     console.log(infos);
  }
 
 
@@ -116,10 +118,17 @@ let arrivingAddress = {
     street: "",
     home: ""
 };
+
+
 let infos = [personalInfo, pickingAddress,arrivingAddress];
 
+function addressToString(address) {
+    return `${address.city}, ${address.district}, ${address.ward},${address.street}, ${address.home}`;
+}
+
 function resetInputField(fields){
-    Object.keys(fields).forEach((field) => fields[field] = "");
+    if(fields)
+        Object.keys(fields).forEach((field) => fields[field] = "");
 }
 
 const getInfoProcess =[
@@ -142,3 +151,111 @@ const getInfoProcess =[
         address.home = $("#input_a_home").val();
     }
 ];
+
+
+$(".fetch-address").click(async function () {
+    let fetchInfo = handleSearch();
+try {
+    const data = await APIService.searchAddress({page: 1, limit: 20,search:fetchInfo.search});
+    appendDataList(data.result,fetchInfo.datalist);
+} catch (err) {
+    console.log(err);
+}
+
+})
+
+$(".fetch-phone").click(async function () {
+try {
+    const data = await APIService.fetchRequests({page: page, limit: limit});
+    let phones = data.requests.map(function(request) {
+        return request['phone'];
+    })
+    phones = phones.filter(function(value, index,self) {
+        return self.indexOf(value) === index;
+    })
+    appendDataList(phones,"#phones");
+} catch (err) {
+    console.log(err);
+}
+
+})
+
+function appendDataList(options,datalistId) {
+    console.log(options);
+    $(datalistId).empty();
+    if(options.length)
+        options.forEach(option => {
+            $(datalistId).append("<option value='" + option + "'>")
+        })
+}
+
+function handleSearch() {
+    let id;
+    if(formnumber == 1) {
+        id = "#input_p";
+    } else if(formnumber ==2) {
+        id = "#input_a";
+    }
+
+    let result = {
+        search: "",
+        datalist: "",
+    };
+    
+    let city = $(`${id}_city`).val();
+    if(!city) {
+        return result;
+    }
+    result.search += `${city}`
+    result.datalist=  "#districts";
+
+    let district = $(`${id}_district`).val();
+    if(!district) {
+        return result;
+    }
+    result.search += `,${district}`
+    result.datalist=  "#wards";
+
+
+    let ward = $(`${id}_ward`).val();
+    if(!ward) {
+        return result;
+    }
+    result.search += `,${ward}`
+    result.datalist=  "#streets";
+
+    let street = $(`${id}_street`).val();
+    if(!street) {
+        return result;
+    }
+    result.search += `,${street}`
+    result.datalist=  "#homes";
+    
+    
+    return result;
+
+}
+
+$("#show_result_button").click(function() {
+    $("#result_phone").text(personalInfo.phone);
+    $("#result_name").text(personalInfo.name);
+    $("#result_picking").text(addressToString(pickingAddress));
+    $("#result_arriving").text(addressToString(arrivingAddress));
+
+})
+
+$("#create_request_button").click(async function() {
+    try{
+        const data = await APIService.createRequest(personalInfo.phone,"moterbike","someguy",pickingAddress,arrivingAddress);
+        console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+$("#reset_button").click(function() {
+    console.log("hello");
+    formnumber = 0;
+    updateform();
+    contentchange();
+})

@@ -50,7 +50,6 @@
                         </div>
                         <div class="right-side">
                             <div class="main active">
-                                <small><i class="fa fa-smile-o"></i></small>
                                 <div class="text">
                                     <h2>Your Personal Information</h2>
                                     <p>Enter your personal information.</p>
@@ -61,9 +60,12 @@
                                         <span>Name</span>
                                     </div>
                                     <div class="input-div">
-                                        <input type="text" required require id="input_phone">
+                                        <input type="text" required require id="input_phone" list="phones" autocomplete="off">
+                                        <datalist id="phones">
+                                        </datalist>
                                         <span>Phone number</span>
                                     </div>
+                                    <input class="fetch-phone" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
@@ -76,36 +78,52 @@
                                 </div>
                             </div>
                             <div class="main">
-                                <small><i class="fa fa-smile-o"></i></small>
                                 <div class="text">
                                     <h2>Picking Address</h2>
                                     <p>Inform Where To Get You</p>
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text"  class="picking_location" id="input_p_city" required require>
+                                        <input type="text" list="citys" class="picking_location" id="input_p_city" required require autocomplete="off">
+                                        <datalist id="citys">
+                                            <option>Tp.Hcm</option>
+                                        </datalist>
                                         <span>City</span>
                                     </div>
                                     <div class="input-div">
-                                        <input type="text"  class="picking_location" id="input_p_district" required require>
+                                        <input type="text" list="districts" class="picking_location" id="input_p_district" required require autocomplete="off">
                                         <span>District</span>
+                                        <datalist id="districts">
+                                        </datalist>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text"  class="picking_location" id="input_p_ward" required require>
+                                        <input type="text" list="wards" class="picking_location" id="input_p_ward" required require autocomplete="off">
                                         <span>Ward</span>
+                                        <datalist id="wards">
+
+                                        </datalist>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                     <div class="input-div">
-                                        <input type="text"  class="picking_location" id="input_p_street" required require>
+                                        <input type="text" list="streets" class="picking_location" id="input_p_street" required require autocomplete="off">
                                         <span>Street</span>
+                                        <datalist id="streets">
+
+                                        </datalist>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text"  class="picking_location" id="input_p_home" required require>
+                                        <input type="text"  list="homes" class="picking_location" id="input_p_home" required require autocomplete="off">
                                         <span>Home Number</span>
+                                        <datalist id="homes">
+                                        </datalist>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="buttons button_space">
                                     <button class="back_button">Back</button>
@@ -113,57 +131,61 @@
                                 </div>
                             </div>
                             <div class="main">
-                                <small><i class="fa fa-smile-o"></i></small>
                                 <div class="text">
                                     <h2>Arriving Address</h2>
                                     <p>Inform Where Are You Going</p>
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text"  class="arriving_location" id="input_a_city" required require>
+                                        <input type="text" list="citys" class="arriving_location" id="input_a_city" required require autocomplete="off">
                                         <span>City</span>
                                     </div>
                                     <div class="input-div">
-                                        <input type="text"class="arriving_location" id="input_a_district"  required require>
+                                        <input type="text" list="districts" class="picking_location" id="input_a_district" required require autocomplete="off">
                                         <span>District</span>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" class="arriving_location" id="input_a_ward"  required require>
+                                        <input type="text" list="wards" class="arriving_location" id="input_a_ward"  required require autocomplete="off">
                                         <span>Ward</span>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                     <div class="input-div">
-                                        <input type="text" class="arriving_location" id="input_a_street" required require>
+                                        <input type="text" list="streets" class="arriving_location" id="input_a_street" required require autocomplete="off">
                                         <span>Street</span>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" class="arriving_location" id="input_a_home" required require>
+                                        <input type="text" list="homes" class="arriving_location" id="input_a_home" required require autocomplete="off">
                                         <span>Home Number</span>
                                     </div>
+                                    <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="buttons button_space">
                                     <button class="back_button">Back</button>
-                                    <button class="next_button">Next Step</button>
+                                    <button class="next_button" id="show_result_button">Next Step</button>
                                 </div>
                             </div>
                             <div class="main">
-                                <small><i class="fa fa-smile-o"></i></small>
                                 <div class="text">
                                     <h2>Commit</h2>
                                     <p>Checking Result Again</p>
                                 </div>
+                                <p>Phone: <span id="result_phone"></span></p>
+                                <p>Name: <span id="result_name"></span></p>
                                 <div class="user_card">
-                                    <p>Phone: <span id="result_phone"></span></p>
-                                    <p>Name: <span id="result_name"></span></p>
-                                    <p>Picking: <span id="result_picking">135B, Tran Hung Dao, Cau Ong Lanh, Quan 1, TP Hcm</span></p>
-                                    <p>Arriving: <span id="result_arriving">135B, Tran Hung Dao, Cau Ong Lanh, Quan 1, TP Hcm</span></p>
+                                    <p>Picking: <span id="result_picking"></span></p>
+                                </div>
+                                <div class="user_card mb-0">
+                                    <p>Arriving: <span id="result_arriving"></span></p>
                                 </div>
                                 <div class="buttons button_space">
                                     <button class="back_button">Back</button>
-                                    <button class="submit_button">Submit</button>
+                                    <button id="create_request_button" class="submit_button">Submit</button>
                                 </div>
                             </div>
                             <div class="main">
@@ -176,6 +198,9 @@
                                     <h2>Congratulations!</h2>
                                     <p>Thanks Mr./Mrs. <span class="shown_name" id="result_name_2"></span> your Request have been sended
                                         successfully for the future reference we will contact you soon.</p>
+                                </div>
+                                <div class="buttons button_space">
+                                    <button id="reset_button">Back</button>
                                 </div>
                             </div>
                         </div>
