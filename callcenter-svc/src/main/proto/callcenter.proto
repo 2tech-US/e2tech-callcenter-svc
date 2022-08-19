@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package tech2.microservice;
+
+option java_multiple_files = true;
+option go_package = "./internal/pb";
+
+import "google/protobuf/timestamp.proto";
+
+message CallCenterEmployee {
+  string phone = 1;
+  string name = 2;
+  bool verified = 3;
+  string role = 4;
+  string dateOfBirth = 5;
+  string urlImage = 6;
+}
+
+message createCallCenterEmployeeRequest{
+  string phone = 1;
+  string role = 2;
+}
+
+message updateCallCenterEmployeeRequest{
+  CallCenterEmployee employee =1;
+}
+
+message getEmployeeRequest{
+  string phone = 1;
+}
+
+message getEmployeeResponse{
+  int64 status = 1;
+  string error = 2;
+  CallCenterEmployee items = 3;
+}
+
+message getListEmployeeRequest{
+  int32 offset = 1;
+  int32 limit = 2;
+}
+
+message getListEmployeeResponse{
+  int64 status = 1;
+  string error = 2;
+  repeated CallCenterEmployee items = 3;
+  int64 total = 4;
+}
+
+
+service CallCenterService {
+  // unary - synchronous
+  rpc getEmployee(getEmployeeRequest) returns (getEmployeeResponse);
+  rpc getListEmployee(getListEmployeeRequest) returns (getListEmployeeResponse);
+  rpc createEmployee(createCallCenterEmployeeRequest) returns (getEmployeeResponse);
+  rpc updateEmployee(updateCallCenterEmployeeRequest) returns (getEmployeeResponse);
+}
