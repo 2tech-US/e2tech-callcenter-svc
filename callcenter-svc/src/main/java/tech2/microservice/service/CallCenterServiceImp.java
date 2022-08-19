@@ -1,7 +1,6 @@
 package tech2.microservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import tech2.microservice.exception.NotFoundException;
 import tech2.microservice.model.CallCenterEmployee;
 import tech2.microservice.repository.CallCenterEmployeeRepo;
 
-
 import java.util.List;
 
 @Service
@@ -20,6 +18,11 @@ import java.util.List;
 public class CallCenterServiceImp implements CallCenterService {
 
     private final CallCenterEmployeeRepo employeeRepo;
+
+    @Override
+    public long count() {
+        return employeeRepo.count();
+    }
 
     @Override
     public boolean isAccountExist(String phone) {
@@ -38,7 +41,7 @@ public class CallCenterServiceImp implements CallCenterService {
     @Override
     public List<CallCenterEmployee> getEmployeesInfo(int offset,
                                                      int limit) {
-        Pageable pageable = PageRequest.of(offset, limit);
+        Pageable pageable = PageRequest.of(offset-1, limit);
         return employeeRepo.findAll(pageable).toList();
     }
 
@@ -56,9 +59,9 @@ public class CallCenterServiceImp implements CallCenterService {
         if (employee == null) {
             throw new NotFoundException("Employee ID(" + phone + ") don't exist");
         }
-        BeanUtils.copyProperties(updateEmployee, employee);
         updateEmployee.setPhone(phone);
-        return employeeRepo.save(employee);
+        updateEmployee.setRole(employee.getRole());
+        return employeeRepo.save(updateEmployee);
     }
 
 }

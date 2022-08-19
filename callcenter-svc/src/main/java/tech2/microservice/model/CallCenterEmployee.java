@@ -5,8 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Data
@@ -15,13 +16,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CallCenterEmployee {
-    @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Id
     private String phone;
 
-    @NotEmpty(message = "The username can be empty")
     private String name;
     private String urlImage;
     private Date birthDate;
+    @Pattern(regexp = "callcenter_creator|callcenter_locator|callcenter_manager", message = "Invalid Role")
     private String role;
 }
+
 

@@ -22,6 +22,7 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
                                         .setStatus(HttpResponseStatus.OK.code())
                                         .setItems(employee)
                                         .build());
+        responseObserver.onCompleted();
     }
 
     @Override
@@ -32,8 +33,10 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
                 ProtobufModelMapping::grpcEmployeeMapping).toList();
         responseObserver.onNext(getListEmployeeResponse.newBuilder()
                                         .setStatus(HttpResponseStatus.OK.code())
+                                        .setTotal(callCenterService.count())
                                         .addAllItems(listEmployee)
                                         .build());
+        responseObserver.onCompleted();
     }
 
     @Override
@@ -41,11 +44,12 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
                                StreamObserver<getEmployeeResponse> responseObserver) {
         CallCenterEmployee employee = ProtobufModelMapping.grpcEmployeeMapping(
                 callCenterService.createEmployee(
-                        DomainModelMapping.nonInfoEmployee(request.getPhone(),request.getRole())));
+                        DomainModelMapping.nonInfoEmployee(request.getPhone(), request.getRole())));
         responseObserver.onNext(getEmployeeResponse.newBuilder()
                                         .setStatus(HttpResponseStatus.CREATED.code())
                                         .setItems(employee)
                                         .build());
+        responseObserver.onCompleted();
     }
 
     @Override
@@ -60,5 +64,6 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
                                         .setStatus(HttpResponseStatus.OK.code())
                                         .setItems(employee)
                                         .build());
+        responseObserver.onCompleted();
     }
 }
