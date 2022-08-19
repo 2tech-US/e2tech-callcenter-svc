@@ -63,48 +63,6 @@ const tableButtonEvent = {
 
 pageConfig.getItemsMethods =  async () => {
     return await APIService.fetchRequests({ limit: pageConfig.limit, page: pageConfig.page });
-  //   let pickingAddress = {
-  //     city: "Tp.HCM",
-  //     district: "Quan 1",
-  //     ward: "Phuong Cau Ong Lanh",
-  //     street: "Duong Tran Hung Dao",
-  //     home: "135B"
-  // };
-  // let arrivingAddress = {
-  //   city: "Tp.HCM",
-  //   district: "Quan 1",
-  //   ward: "Phuong Cau Ong Lanh",
-  //   street: "Duong Tran Hung Dao",
-  //   home: "135B",
-  // };
-
-  //   const testItems = {
-  //     'total-pages': 3,
-  //     'current-page': 1,
-  //     'items': [
-  //       {   id:"1",
-  //           phone: "0908080572",
-  //           name: "John Smith",
-  //           pickingAddress: pickingAddress,
-  //           arrivingAddress: arrivingAddress
-  //       },
-  //       {
-  //           id: "2",
-  //           phone: "0908080571",
-  //           name: "John Smith2",
-  //           pickingAddress: pickingAddress,
-  //           arrivingAddress: arrivingAddress
-  //       },
-  //       {
-  //           id: "3",
-  //           phone: "0908080573",
-  //           name: "John Smith3",
-  //           pickingAddress: pickingAddress,
-  //           arrivingAddress: arrivingAddress
-  //       }
-  //   ],
-  //   };
-  //   return  testItems;
   };
   pageConfig.tableName = 'Customer Requests';
   pageConfig.limit = 3;

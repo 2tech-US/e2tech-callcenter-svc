@@ -1,17 +1,6 @@
 import APIService from "./utils/api_service.js";
 //import { cacheKey } from "./utils/common.js";
-import {validateUserEmail} from "./utils/validate.js";
-
-$(document).ready(async function () {
-  const cachedEmail = localStorage.getItem(cacheKey.emailKey) ?? "";
-  const cachedPwd = localStorage.getItem(cacheKey.pwdKey) ?? "";
-  const rememberMe = localStorage.getItem(cacheKey.rememberMe);
-  $("#useremail").val(cachedEmail);
-  $("#userpwd").val(cachedPwd);
-  if (rememberMe) {
-    $("#rememberMeCheck").prop("checked", true);
-  }
-});
+import {validateUserEmail,validateStringField} from "./utils/validate.js";
 
 $("#forget-password").on("click", async (event) => {
   $("#modal-forget-password").modal("show");
@@ -66,7 +55,7 @@ $("#login").click(async () => {
 
 $("#useremail").on("input propertychange", function (e) {
   e.preventDefault();
-  validateUserEmail("useremail", "error");
+  validateStringField("useremail", "error",7,15);
 });
 
 

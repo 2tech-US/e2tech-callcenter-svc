@@ -13,6 +13,12 @@ public class FrontendController {
         return "login";
     }
 
+    @GetMapping("/signup")
+    public String getSignupPage(Model model){
+        model.addAttribute("pageTitle",PAGE_NAME + "Signup");
+        return "signup";
+    }
+
     @GetMapping("/home")
     public String getHomePage(Model model) {
         model.addAttribute("pageTitle",PAGE_NAME + "Home");
