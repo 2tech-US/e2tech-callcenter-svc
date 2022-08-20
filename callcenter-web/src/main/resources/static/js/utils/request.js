@@ -19,7 +19,7 @@ async function tokenReset() {
     TokenService.accessToken.set(newAccessToken);
     TokenService.refreshToken.set(newRefreshToken);
   } catch (err) {
-     throw new Error("invalid refresh-token");
+    throw new Error("invalid refresh-token");
   }
 }
 
@@ -50,7 +50,7 @@ async function request(url, params, body, headers, method, useToken, token) {
     } catch (err) {
       errMsg = "something went wrong";
     }
-    if (!useToken || statusCode!=401) {
+    if (!useToken || statusCode != 401) {
       throw new Error(errMsg);
     }
     await tokenReset();

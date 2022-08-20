@@ -16,15 +16,14 @@
 
     <link rel="stylesheet" th:href="@{/css/attendant-process.css}" type="text/css">
 
-
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
 
 </head>
 
 <body>
-<div th:replace="fragments/navbar :: left-navbar"></div>
+    <div th:replace="fragments/navbar :: left-navbar"></div>
     <div class="header">
         <div class="content">
             <div class="container">
@@ -60,7 +59,8 @@
                                         <span>Name</span>
                                     </div>
                                     <div class="input-div">
-                                        <input type="text" required require id="input_phone" list="phones" autocomplete="off">
+                                        <input type="text" required require id="input_phone" list="phones"
+                                            autocomplete="off">
                                         <datalist id="phones">
                                         </datalist>
                                         <span>Phone number</span>
@@ -84,14 +84,16 @@
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" list="citys" class="picking_location" id="input_p_city" required require autocomplete="off">
+                                        <input type="text" list="citys" class="picking_location" id="input_p_city"
+                                            required require autocomplete="off">
                                         <datalist id="citys">
                                             <option>Tp.Hcm</option>
                                         </datalist>
                                         <span>City</span>
                                     </div>
                                     <div class="input-div">
-                                        <input type="text" list="districts" class="picking_location" id="input_p_district" required require autocomplete="off">
+                                        <input type="text" list="districts" class="picking_location"
+                                            id="input_p_district" required require autocomplete="off">
                                         <span>District</span>
                                         <datalist id="districts">
                                         </datalist>
@@ -100,7 +102,8 @@
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" list="wards" class="picking_location" id="input_p_ward" required require autocomplete="off">
+                                        <input type="text" list="wards" class="picking_location" id="input_p_ward"
+                                            required require autocomplete="off">
                                         <span>Ward</span>
                                         <datalist id="wards">
 
@@ -108,7 +111,8 @@
                                     </div>
                                     <input class="fetch-address" type="submit" value="">
                                     <div class="input-div">
-                                        <input type="text" list="streets" class="picking_location" id="input_p_street" required require autocomplete="off">
+                                        <input type="text" list="streets" class="picking_location" id="input_p_street"
+                                            required require autocomplete="off">
                                         <span>Street</span>
                                         <datalist id="streets">
 
@@ -118,7 +122,8 @@
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text"  list="homes" class="picking_location" id="input_p_home" required require autocomplete="off">
+                                        <input type="text" list="homes" class="picking_location" id="input_p_home"
+                                            required require autocomplete="off">
                                         <span>Home Number</span>
                                         <datalist id="homes">
                                         </datalist>
@@ -137,30 +142,35 @@
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" list="citys" class="arriving_location" id="input_a_city" required require autocomplete="off">
+                                        <input type="text" list="citys" class="arriving_location" id="input_a_city"
+                                            required require autocomplete="off">
                                         <span>City</span>
                                     </div>
                                     <div class="input-div">
-                                        <input type="text" list="districts" class="picking_location" id="input_a_district" required require autocomplete="off">
+                                        <input type="text" list="districts" class="picking_location"
+                                            id="input_a_district" required require autocomplete="off">
                                         <span>District</span>
                                     </div>
                                     <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" list="wards" class="arriving_location" id="input_a_ward"  required require autocomplete="off">
+                                        <input type="text" list="wards" class="arriving_location" id="input_a_ward"
+                                            required require autocomplete="off">
                                         <span>Ward</span>
                                     </div>
                                     <input class="fetch-address" type="submit" value="">
                                     <div class="input-div">
-                                        <input type="text" list="streets" class="arriving_location" id="input_a_street" required require autocomplete="off">
+                                        <input type="text" list="streets" class="arriving_location" id="input_a_street"
+                                            required require autocomplete="off">
                                         <span>Street</span>
                                     </div>
                                     <input class="fetch-address" type="submit" value="">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" list="homes" class="arriving_location" id="input_a_home" required require autocomplete="off">
+                                        <input type="text" list="homes" class="arriving_location" id="input_a_home"
+                                            required require autocomplete="off">
                                         <span>Home Number</span>
                                     </div>
                                     <input class="fetch-address" type="submit" value="">
@@ -190,13 +200,14 @@
                             </div>
                             <div class="main">
                                 <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                                 </svg>
-        
+
                                 <div class="text congrats">
                                     <h2>Congratulations!</h2>
-                                    <p>Thanks Mr./Mrs. <span class="shown_name" id="result_name_2"></span> your Request have been sended
+                                    <p>Thanks Mr./Mrs. <span class="shown_name" id="result_name_2"></span> your Request
+                                        have been sended
                                         successfully for the future reference we will contact you soon.</p>
                                 </div>
                                 <div class="buttons button_space">
@@ -208,15 +219,15 @@
                 </div>
             </div>
 
+        </div>
+
     </div>
 
-</div>
+    <!-- Js Plugins -->
+    <div th:replace="fragments/footer :: script"></div>
+    <script th:src="@{/js/home-navbar.js}"></script>
 
-<!-- Js Plugins -->
-<div th:replace="fragments/footer :: script"></div>
-<script th:src="@{/js/home-navbar.js}"></script>
-
-<script type="module" th:src="@{/js/attendant-process.js}"></script>
+    <script type="module" th:src="@{/js/attendant-process.js}"></script>
 
 
 </body>

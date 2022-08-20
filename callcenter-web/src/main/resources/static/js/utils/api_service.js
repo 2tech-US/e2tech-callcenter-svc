@@ -53,7 +53,12 @@ const APIService = {
       url: url,
       body: body,
     });
-    if (res.data.role != "callcenter_locator" && res.data.role != "callcenter_creator" && res.data.role != "callcenter_manager"  && res.data.role != "admin") {
+    if (
+      res.data.role != "callcenter_locator" &&
+      res.data.role != "callcenter_creator" &&
+      res.data.role != "callcenter_manager" &&
+      res.data.role != "admin"
+    ) {
       throw new Error("you don't have enough right to access this site!");
     }
     const accessToken = res.data.token;
@@ -62,7 +67,7 @@ const APIService = {
     // TokenService.refreshToken.set(refreshToken);
   },
 
-  register: async (phone,name,password,role) => {
+  register: async (phone, name, password, role) => {
     const url = "/auth/register";
     const body = {
       phone: phone,
@@ -81,67 +86,95 @@ const APIService = {
     TokenService.accessToken.del();
     TokenService.refreshToken.del();
   },
-  
-  getAddress: async(city, district, ward, street, home) => {
+
+  getAddress: async (city, district, ward, street, home) => {
     const body = {
       city: city,
       district: district,
-      ward: ward, 
+      ward: ward,
       street: street,
       home: home,
-    }
-    const url =  "/callcenter/address" ;
-    const res =  await Request.post({url: url , body: body, useToken: false});
+    };
+    const url = "/callcenter/address";
+    const res = await Request.post({ url: url, body: body, useToken: false });
     return res.data;
   },
 
-  updateAddress: async(address, location) => {
+  updateAddress: async (address, location) => {
     const body = {
       address: address,
       location: location,
+    };
+    const url = "/callcenter/address";
+    const res = await Request.put({ url: url, body: body, useToken: false });
+    return res.data;
+  },
+
+  searchAddress: async ({ page, limit, search } = {}) => {
+    const searchParams = queryAllParamsFormat(
+      page,
+      limit,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    );
+    if (search) {
+      searchParams.set("search", search);
     }
-    const url =  "/callcenter/address" ;
-    const res =  await Request.put({url: url , body: body, useToken: false});
+    const url = "/callcenter/address/search";
+    const res = await Request.get({
+      url: url,
+      params: searchParams,
+      useToken: false,
+    });
     return res.data;
   },
 
-  searchAddress: async({page, limit,search} = {}) => {
-    const searchParams = queryAllParamsFormat(page, limit, null, null, null, null, null, null);
-    if(search) {
-      searchParams.set("search",search);
+  fetchRequest: async (id) => {
+    const url = `/callcenter/request/${id}`;
+    const res = await Request.get({ url: url, useToken: false });
+    return res.data;
+  },
+
+  fetchRequests: async ({ page, limit, phone,state } = {}) => {
+    const searchParams = queryAllParamsFormat(
+      page,
+      limit,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    );
+    if (phone) {
+      searchParams.set("phone", phone);
     }
-    const url =  "/callcenter/address/search" ;
-    const res =  await Request.get({url: url , params: searchParams, useToken: false});
-    return res.data;
-  },
-
-
-  fetchRequest: async(id) => {
-    const url =  `/callcenter/request/${id}` ;
-    const res =  await Request.get({url: url ,useToken: false});
-    return res.data;
-  },
-
-  fetchRequests: async({page, limit,phone} = {}) => {
-    const searchParams = queryAllParamsFormat(page, limit, null, null, null, null, null, null);
-    if(phone) {
-      searchParams.set("phone",phone)
+    if (state) {
+      searchParams.set("state", state);
     }
-    const url =  "/callcenter/request" ;
-    const res =  await Request.get({url: url , params: searchParams, useToken: false});
+    const url = "/callcenter/request";
+    const res = await Request.get({
+      url: url,
+      params: searchParams,
+      useToken: false,
+    });
     return res.data;
   },
 
-  createRequest: async(phone, type ,employeeId,arriving, picking) => {
+  createRequest: async (phone, type, employeeId, arriving, picking) => {
     const body = {
-      phone:phone, 
+      phone: phone,
       type: type,
       employeeId: employeeId,
       arriving: arriving,
       picking: picking,
     };
     const url = "/callcenter/request";
-    const res = await Request.post({url:url , body: body,useToken: false });
+    const res = await Request.post({ url: url, body: body, useToken: false });
     return res.data;
   },
 };

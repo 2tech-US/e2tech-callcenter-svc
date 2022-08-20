@@ -58,3 +58,7 @@
     cursor: pointer;
     user-select: none;
 }
+
+.pagination{
+    background-color: antiquewhite;
+}

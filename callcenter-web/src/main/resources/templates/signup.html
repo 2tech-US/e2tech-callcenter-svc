@@ -2,30 +2,30 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title th:text="${pageTitle}">E2Tech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${pageTitle}">E2Tech</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
-  <!-- Css Styles -->
-  <link rel="stylesheet" th:href="@{/common/css/bootstrap.min.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/css/login-style.css}" type="text/css">
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{/common/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/login-style.css}" type="text/css">
 
-  <!-- Font awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
 
 </head>
 
 <body>
-    <div class="toast" data-autohide="false" >
+    <div class="toast" data-autohide="false">
         <div class="toast-header">
-          <strong class="mr-auto text-primary">Teche</strong>
-          <small class="text-muted">You have 7 day to save your shit</small>
-          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+            <strong class="mr-auto text-primary">Teche</strong>
+            <small class="text-muted">You have 7 day to save your shit</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
         </div>
         <div class="toast-body">
         </div>
@@ -35,47 +35,49 @@
         <div class="card">
             <div class="d-flex flex-column" method="">
                 <div class="h3 text-center text-white">Signup</div>
-                <div class="d-flex align-items-center input-field"> 
+                <div class="d-flex align-items-center input-field">
                     <span class="far fa-user p-2"></span>
                     <input type="text" placeholder="Email" class="form-control" id="useremail" autocomplete="off">
                 </div>
-                <p class="text-danger text-break" id="email-error"></p> 
+                <p class="text-danger text-break" id="email-error"></p>
 
-                <div class="d-flex align-items-center input-field"> 
+                <div class="d-flex align-items-center input-field">
                     <span class="far fa-user p-2"></span>
-                    <input type="text" placeholder="Your name" class="form-control" id="username" autocomplete="off"> 
+                    <input type="text" placeholder="Your name" class="form-control" id="username" autocomplete="off">
                 </div>
                 <p class="text-danger text-break" id="name-error"></p>
-                <div class="d-flex align-items-center input-field "> 
-                    <span class="fas fa-lock p-2"></span> 
+                <div class="d-flex align-items-center input-field ">
+                    <span class="fas fa-lock p-2"></span>
                     <input type="password" placeholder="Password" class="form-control" id="userpwd">
                     <span class="input-group-text" id="password_show_hide">
                         <i class="fas fa-eye" id="show_eye"></i>
                         <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                      </span> 
+                    </span>
                 </div>
                 <p class="text-danger text-break mb-0" id="password-error"> </p>
                 <div class="d-flex mt-4 align-items-center input-field">
-                    <label for="role">Choose a role: </label> 
+                    <label for="role">Choose a role: </label>
                     <select name="role" id="role">
                         <option value="callcenter_creator">Creator</option>
                         <option value="callcenter_locator">GPs Locator</option>
                         <option value="callcenter_manager">Customer care</option>
-                      </select>
+                    </select>
                 </div>
                 <div class="d-flex align-items-center">
                     <p class="text-danger text-break" id="error"></p>
                 </div>
-                <div class="my-3"> <div id="signup" class="btn btn-primary">Sign Up</div></div>
-                <div class="mt-sm-0 mt-3"><a href="/login">You already have account?</a></div>
+                <div class="my-3">
+                    <div id="signup" class="btn btn-primary">Sign Up</div>
                 </div>
+                <div class="mt-sm-0 mt-3"><a href="/login">You already have account?</a></div>
             </div>
         </div>
     </div>
+    </div>
 
-<!-- Js Plugins -->
-<div th:replace="fragments/footer :: script-login"></div>
-<script type="module" th:src="@{/js/signup.js}"></script>
+    <!-- Js Plugins -->
+    <div th:replace="fragments/footer :: script-login"></div>
+    <script type="module" th:src="@{/js/signup.js}"></script>
 
 
 </body>

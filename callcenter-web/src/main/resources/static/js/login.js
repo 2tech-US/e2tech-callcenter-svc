@@ -1,41 +1,42 @@
 import APIService from "./utils/api_service.js";
 //import { cacheKey } from "./utils/common.js";
-import {validateUserEmail,validateStringField} from "./utils/validate.js";
+import { validateUserEmail, validateStringField } from "./utils/validate.js";
 
 $("#forget-password").on("click", async (event) => {
   $("#modal-forget-password").modal("show");
 });
 
 $("#send-forget-password").on("click", async (event) => {
-
-  if(!validateUserEmail("user-email-forget", "forget-error")) {
+  if (!validateUserEmail("user-email-forget", "forget-error")) {
     return;
   }
-    const email = $("#user-email-forget").val();
-    try {
+  const email = $("#user-email-forget").val();
+  try {
     const res = await APIService.requestResetPassword(email);
     $("#modal-forget-password").modal("hide");
-    $('.toast-body').text("Check your email and click the link to activate your account");
-    $('.toast').toast('show');
-    } catch(err) {
-      console.log(err.message);
-    }
+    $(".toast-body").text(
+      "Check your email and click the link to activate your account"
+    );
+    $(".toast").toast("show");
+  } catch (err) {
+    console.log(err.message);
+  }
 });
 
 $("#login").click(async () => {
   $("#error").text("");
 
-  const email =   validateUserEmail("useremail", "error");
-  if(!email) return;
+  const email = validateUserEmail("useremail", "error");
+  if (!email) return;
   const password = $("#userpwd").val();
   const rememberMe = $("#rememberMeCheck").is(":checked");
   const userInfo = {
     email: email,
-    password: password
-  }
+    password: password,
+  };
 
   try {
-    await APIService.login(email,password,"user");
+    await APIService.login(email, password, "user");
     if (rememberMe) {
       localStorage.setItem(cacheKey.emailKey, email);
       localStorage.setItem(cacheKey.pwdKey, password);
@@ -45,26 +46,22 @@ $("#login").click(async () => {
       localStorage.removeItem(cacheKey.pwdKey);
       localStorage.removeItem(cacheKey.rememberMe);
     }
-    window.location.href = `/`;
+    window.location.href = `/home`;
   } catch (err) {
     console.log(err);
     $(".text-danger").text(err.message);
   }
 });
 
-
 $("#useremail").on("input propertychange", function (e) {
   e.preventDefault();
-  validateStringField("useremail", "error",7,15);
+  validateStringField("useremail", "error", 7, 15);
 });
-
 
 $("#user-email-forget").on("input propertychange", function (e) {
   e.preventDefault();
   validateUserEmail("user-email-forget", "forget-error");
 });
-
-
 
 $("#password_show_hide").on("click", function (e) {
   const show_eye = $("#show_eye");

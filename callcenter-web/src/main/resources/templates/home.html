@@ -16,22 +16,22 @@
 
     <!-- Font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
 
 </head>
 
 <body>
-<div th:replace="fragments/navbar :: left-navbar"></div>
-<div class="content">
-    <div class="header">
-        <h1 id="greeting-token">Hello [username]</h1>
+    <div th:replace="fragments/navbar :: left-navbar"></div>
+    <div class="content">
+        <div class="header">
+            <h1 id="greeting-token">Hello [username]</h1>
+        </div>
+
     </div>
 
-</div>
-
-<!-- Js Plugins -->
-<div th:replace="fragments/footer :: script"></div>
-<script th:src="@{/js/home-navbar.js}"></script>
+    <!-- Js Plugins -->
+    <div th:replace="fragments/footer :: script"></div>
+    <script th:src="@{/js/home-navbar.js}"></script>
 
 </body>
 
