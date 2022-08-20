@@ -161,6 +161,7 @@ $(".fetch-address").click(async function () {
 $(".fetch-phone").click(async function () {
   try {
     const data = await APIService.fetchRequests({ page: page, limit: limit });
+    if(!data.items)  return;
     let phones = data.items.map(function (request) {
       return request["phone"];
     });
@@ -170,6 +171,8 @@ $(".fetch-phone").click(async function () {
     appendDataList(phones, "#phones");
   } catch (err) {
     console.log(err);
+    alert(err);
+    window.location.href ="/home";
   }
 });
 

@@ -48,19 +48,12 @@ const APIService = {
     const body = {
       phone: phone,
       password: password,
+      device_token: "null",
     };
     const res = await Request.post({
       url: url,
       body: body,
     });
-    if (
-      res.data.role != "callcenter_locator" &&
-      res.data.role != "callcenter_creator" &&
-      res.data.role != "callcenter_manager" &&
-      res.data.role != "admin"
-    ) {
-      throw new Error("you don't have enough right to access this site!");
-    }
     const accessToken = res.data.token;
     // const refreshToken = res.data.refreshToken;
     TokenService.accessToken.set(accessToken);
@@ -96,7 +89,7 @@ const APIService = {
       home: home,
     };
     const url = "/callcenter/address";
-    const res = await Request.post({ url: url, body: body, useToken: false });
+    const res = await Request.post({ url: url, body: body, useToken: true });
     return res.data;
   },
 
@@ -106,7 +99,7 @@ const APIService = {
       location: location,
     };
     const url = "/callcenter/address";
-    const res = await Request.put({ url: url, body: body, useToken: false });
+    const res = await Request.put({ url: url, body: body, useToken: true });
     return res.data;
   },
 
@@ -128,14 +121,14 @@ const APIService = {
     const res = await Request.get({
       url: url,
       params: searchParams,
-      useToken: false,
+      useToken: true,
     });
     return res.data;
   },
 
   fetchRequest: async (id) => {
     const url = `/callcenter/request/${id}`;
-    const res = await Request.get({ url: url, useToken: false });
+    const res = await Request.get({ url: url, useToken: true });
     return res.data;
   },
 
@@ -160,7 +153,7 @@ const APIService = {
     const res = await Request.get({
       url: url,
       params: searchParams,
-      useToken: false,
+      useToken: true,
     });
     return res.data;
   },
@@ -174,7 +167,7 @@ const APIService = {
       picking: picking,
     };
     const url = "/callcenter/request";
-    const res = await Request.post({ url: url, body: body, useToken: false });
+    const res = await Request.post({ url: url, body: body, useToken: true });
     return res.data;
   },
 };

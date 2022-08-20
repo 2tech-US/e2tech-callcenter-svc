@@ -50,18 +50,24 @@ async function request(url, params, body, headers, method, useToken, token) {
     } catch (err) {
       errMsg = "something went wrong";
     }
+    if(statusCode == 401) {
+      throw Error("unauthorized");
+    }
     if (!useToken || statusCode != 401) {
       throw new Error(errMsg);
     }
-    await tokenReset();
-    let reqToken = TokenService.accessToken.get();
-    if (token) {
-      reqToken = token;
-    }
-    reqHeaders = { ...headers, ...headerAuthFormat(reqToken) };
-    request.headers = reqHeaders;
-    const res = await axios(request);
-    return res;
+
+    // use for route refresh token
+
+    // await tokenReset();
+    // let reqToken = TokenService.accessToken.get();
+    // if (token) {
+    //   reqToken = token;
+    // }
+    // reqHeaders = { ...headers, ...headerAuthFormat(reqToken) };
+    // request.headers = reqHeaders;
+    // const res = await axios(request);
+    // return res;
   }
 }
 

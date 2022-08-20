@@ -7,7 +7,7 @@ $("#forget-password").on("click", async (event) => {
 });
 
 $("#send-forget-password").on("click", async (event) => {
-  if (!validateUserEmail("user-email-forget", "forget-error")) {
+  if (!validateStringField("useremail", "error", 7, 15)) {
     return;
   }
   const email = $("#user-email-forget").val();
@@ -26,7 +26,7 @@ $("#send-forget-password").on("click", async (event) => {
 $("#login").click(async () => {
   $("#error").text("");
 
-  const email = validateUserEmail("useremail", "error");
+  const email =   validateStringField("useremail", "error", 7, 15);
   if (!email) return;
   const password = $("#userpwd").val();
   const rememberMe = $("#rememberMeCheck").is(":checked");
@@ -36,16 +36,7 @@ $("#login").click(async () => {
   };
 
   try {
-    await APIService.login(email, password, "user");
-    if (rememberMe) {
-      localStorage.setItem(cacheKey.emailKey, email);
-      localStorage.setItem(cacheKey.pwdKey, password);
-      localStorage.setItem(cacheKey.rememberMe, rememberMe);
-    } else {
-      localStorage.removeItem(cacheKey.emailKey);
-      localStorage.removeItem(cacheKey.pwdKey);
-      localStorage.removeItem(cacheKey.rememberMe);
-    }
+    await APIService.login(email, password);
     window.location.href = `/home`;
   } catch (err) {
     console.log(err);

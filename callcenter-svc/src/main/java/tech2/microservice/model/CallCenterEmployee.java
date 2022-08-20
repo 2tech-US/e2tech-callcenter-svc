@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Pattern;
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -22,8 +25,15 @@ public class CallCenterEmployee {
     private String name;
     private String urlImage;
     private Date birthDate;
+
     @Pattern(regexp = "callcenter_creator|callcenter_locator|callcenter_manager", message = "Invalid Role")
     private String role;
+
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    private Instant updatedAt;
 }
 
 

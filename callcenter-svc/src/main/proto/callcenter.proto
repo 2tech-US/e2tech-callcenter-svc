@@ -5,8 +5,6 @@ package tech2.microservice;
 option java_multiple_files = true;
 option go_package = "./internal/pb";
 
-import "google/protobuf/timestamp.proto";
-
 message CallCenterEmployee {
   string phone = 1;
   string name = 2;
@@ -32,7 +30,7 @@ message getEmployeeRequest{
 message getEmployeeResponse{
   int64 status = 1;
   string error = 2;
-  CallCenterEmployee items = 3;
+  CallCenterEmployee item = 3;
 }
 
 message getListEmployeeRequest{
@@ -49,7 +47,6 @@ message getListEmployeeResponse{
 
 
 service CallCenterService {
-  // unary - synchronous
   rpc getEmployee(getEmployeeRequest) returns (getEmployeeResponse);
   rpc getListEmployee(getListEmployeeRequest) returns (getListEmployeeResponse);
   rpc createEmployee(createCallCenterEmployeeRequest) returns (getEmployeeResponse);

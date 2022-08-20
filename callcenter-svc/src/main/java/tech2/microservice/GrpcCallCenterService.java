@@ -20,7 +20,7 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
                 callCenterService.getEmployeeInfo(request.getPhone()));
         responseObserver.onNext(getEmployeeResponse.newBuilder()
                                         .setStatus(HttpResponseStatus.OK.code())
-                                        .setItems(employee)
+                                        .setItem(employee)
                                         .build());
         responseObserver.onCompleted();
     }
@@ -47,7 +47,7 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
                         DomainModelMapping.nonInfoEmployee(request.getPhone(), request.getRole())));
         responseObserver.onNext(getEmployeeResponse.newBuilder()
                                         .setStatus(HttpResponseStatus.CREATED.code())
-                                        .setItems(employee)
+                                        .setItem(employee)
                                         .build());
         responseObserver.onCompleted();
     }
@@ -62,7 +62,7 @@ public class GrpcCallCenterService extends CallCenterServiceGrpc.CallCenterServi
 
         responseObserver.onNext(getEmployeeResponse.newBuilder()
                                         .setStatus(HttpResponseStatus.OK.code())
-                                        .setItems(employee)
+                                        .setItem(employee)
                                         .build());
         responseObserver.onCompleted();
     }
