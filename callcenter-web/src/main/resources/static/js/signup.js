@@ -27,15 +27,15 @@ $("#signup").on("click", async () => {
     const password = $("#userpwd").val();
     const role = $("#role").val();
     try {
-      console.log(role);
       const response = await APIService.register(phone, name, password, role);
       if (response.status == 201) {
         $(".toast-body").text("Register sucess");
         $(".toast").toast("show");
+      } else {
+        throw new Error(response.error);
       }
     } catch (err) {
-      console.log(err.message);
-      $(".toast-body").text("Register Fail");
+      $(".toast-body").text(err.message);
       $(".toast").toast("show");
     }
   }

@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" required require id="input_name">
+                                        <input type="text" required require id="input_name" autocomplete="off">
                                         <span>Name</span>
                                     </div>
                                     <div class="input-div">
@@ -65,12 +65,16 @@
                                         </datalist>
                                         <span>Phone number</span>
                                     </div>
-                                    <input class="fetch-phone" type="submit" value="">
+                                    <input class="fetch-phone btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
-                                        <input type="text" id="input_email">
-                                        <span>E-mail Address</span>
+                                        <label for="input_car">Choose a car:</label>
+                                        <select id="input_car" type="text">
+                                            <option value="volvo">Motorbike</option>
+                                            <option value="saab">Car 4 seats</option>
+                                            <option value="vw">Car 7 seats</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="buttons">
@@ -98,7 +102,7 @@
                                         <datalist id="districts">
                                         </datalist>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
@@ -109,7 +113,7 @@
 
                                         </datalist>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                     <div class="input-div">
                                         <input type="text" list="streets" class="picking_location" id="input_p_street"
                                             required require autocomplete="off">
@@ -118,7 +122,7 @@
 
                                         </datalist>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
@@ -128,7 +132,7 @@
                                         <datalist id="homes">
                                         </datalist>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="buttons button_space">
                                     <button class="back_button">Back</button>
@@ -151,7 +155,7 @@
                                             id="input_a_district" required require autocomplete="off">
                                         <span>District</span>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
@@ -159,13 +163,13 @@
                                             required require autocomplete="off">
                                         <span>Ward</span>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                     <div class="input-div">
                                         <input type="text" list="streets" class="arriving_location" id="input_a_street"
                                             required require autocomplete="off">
                                         <span>Street</span>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="input-text">
                                     <div class="input-div">
@@ -173,7 +177,7 @@
                                             required require autocomplete="off">
                                         <span>Home Number</span>
                                     </div>
-                                    <input class="fetch-address" type="submit" value="">
+                                    <input class="fetch-address btn-info" type="submit" value="🔎">
                                 </div>
                                 <div class="buttons button_space">
                                     <button class="back_button">Back</button>
@@ -187,6 +191,7 @@
                                 </div>
                                 <p>Phone: <span id="result_phone"></span></p>
                                 <p>Name: <span id="result_name"></span></p>
+                                <p>cars: <span id="result_car"></span></p>
                                 <div class="user_card">
                                     <p>Picking: <span id="result_picking"></span></p>
                                 </div>
@@ -212,6 +217,9 @@
                                 </div>
                                 <div class="buttons button_space">
                                     <button id="reset_button">Back</button>
+                                </div>
+                                <div class="buttons button_space">
+                                    <button id="send_request_button">Send Request</button>
                                 </div>
                             </div>
                         </div>

@@ -46,7 +46,7 @@ async function request(url, params, body, headers, method, useToken, token) {
     const statusCode = err.response.status;
     let errMsg;
     try {
-      errMsg = err.response.data.msg;
+      errMsg = err.response.data['error'];
     } catch (err) {
       errMsg = "something went wrong";
     }
@@ -56,8 +56,6 @@ async function request(url, params, body, headers, method, useToken, token) {
     if (!useToken || statusCode != 401) {
       throw new Error(errMsg);
     }
-
-    // use for route refresh token
 
     // await tokenReset();
     // let reqToken = TokenService.accessToken.get();

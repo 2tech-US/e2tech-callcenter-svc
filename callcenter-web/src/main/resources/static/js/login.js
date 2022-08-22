@@ -36,10 +36,14 @@ $("#login").click(async () => {
   };
 
   try {
-    await APIService.login(email, password);
-    window.location.href = `/home`;
+    const res = await APIService.login(email, password);
+    if(res.status === 200) {
+      window.location.href = `/home`;
+    }
+    else {
+      throw new Error(res.error);
+    }
   } catch (err) {
-    console.log(err);
     $(".text-danger").text(err.message);
   }
 });

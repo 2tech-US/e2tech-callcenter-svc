@@ -80,17 +80,20 @@ function renderPagination() {
 async function tableLoadData() {
   $(".table-data").addClass("table-loading");
   $(".table-data").removeClass("table-loaded");
-  console.log("table get items:");
-  let res = await pageConfig.getItemsMethods();
-
-  pageConfig.items = [];
-  pageConfig.totalPage = Math.ceil(res["total"] / pageConfig.limit);
-  if (res.items)
-    for (let i = 0; i < res.items.length; i++) {
-      pageConfig.items.push(res.items[i]);
-    }
-  renderTable();
-  renderPagination();
+  try {
+    let res = await pageConfig.getItemsMethods();
+    if(res.status != 200) { throw new Error(res.error);}
+    pageConfig.items = [];
+    pageConfig.totalPage = Math.ceil(res["total"] / pageConfig.limit);
+    if (res.items)
+      for (let i = 0; i < res.items.length; i++) {
+        pageConfig.items.push(res.items[i]);
+      }
+    renderTable();
+    renderPagination();
+  }  catch(err) {
+    alert(err.message);
+  }
   $(".table-data").removeClass("table-loading");
   $(".table-data").addClass("table-loaded");
 }

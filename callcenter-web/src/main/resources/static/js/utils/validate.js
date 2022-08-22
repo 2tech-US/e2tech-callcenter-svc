@@ -57,3 +57,14 @@ export function validateStringField(elementId, elementNotifyError, min, max) {
   $(`#${elementNotifyError}`).text("");
   return name;
 }
+
+export function validateDate(elementId, elementNotifyError) {
+  let name = $(`#${elementId}`).val().trim();
+
+  if (!validator.isDate(name, { format : "DD/MM/YYYY",delimiters :['/'] })) {
+    $(`#${elementNotifyError}`).text("Not valid");
+    return false;
+  }
+  $(`#${elementNotifyError}`).text("");
+  return name;
+}

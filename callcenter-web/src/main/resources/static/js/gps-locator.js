@@ -1,6 +1,10 @@
 import pageConfig from "./utils/data_table.js";
 import APIService from "./utils/api_service.js";
+import UserService from "./utils/user_info_service.js";
 
+UserService.accessLocatorPermission();
+
+const request_state = "";
 let emptyAddress = {
   city: "",
   district: "",
@@ -64,12 +68,25 @@ const tableButtonEvent = {
       console.log(err);
     }
   },
+  send: async(self) => {
+    try {
+      const id = $(self).data("id");
+      const res = await APIService.sendRequest(id);
+      if(res.status != 200) {
+        throw new Error(res.error);
+      }
+      await $(".table-load-trigger").click();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
 };
 
 pageConfig.getItemsMethods = async () => {
   return await APIService.fetchRequests({
     limit: pageConfig.limit,
     page: pageConfig.page,
+    state: request_state,
   });
 };
 pageConfig.tableName = "Customer Requests";
@@ -96,17 +113,17 @@ pageConfig.renderTableRow = (item) => {
     <td class="align-middle">${addressToString(item.pickingAddress)}</td>
     <td class="align-middle">${addressToString(item.arrivingAddress)}</td>
     <td class="align-middle">
-        <button class="table-btn manage-btn-edit process" data-click="edit"  data-id='${
+        <button class="table-btn manage-btn-edit process btn-info" data-click="edit"  data-id='${
           item.id
         }'>Edit</button>
-        <button class="table-btn manage-btn-send process" data-click="send" data-id='${
+        <button class="table-btn manage-btn-send process btn-success" data-click="send" data-id='${
           item.id
         }'>Send</button>
 
-        <button hidden class="table-btn manage-btn-save inprogess" data-click="save" data-id='${
+        <button hidden class="table-btn manage-btn-save inprogess btn-primary" data-click="save" data-id='${
           item.id
         }'>Save</button>
-        <button hidden class="table-btn manage-btn-cancel inprogess" data-click="cancel"  data-id='${
+        <button hidden class="table-btn manage-btn-cancel inprogess btn-secondary" data-click="cancel"  data-id='${
           item.id
         }'>Cancel</button>
     </td>

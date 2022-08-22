@@ -1,5 +1,6 @@
 import Request from "./request.js";
 import TokenService from "./token_service.js";
+import UserService from "./user_info_service.js";
 
 async function urlToFile(url) {
   const res = await fetch(url, { mode: "cors" });
@@ -58,6 +59,8 @@ const APIService = {
     // const refreshToken = res.data.refreshToken;
     TokenService.accessToken.set(accessToken);
     // TokenService.refreshToken.set(refreshToken);
+    UserService.id.set(phone);
+    return res.data;
   },
 
   register: async (phone, name, password, role) => {
@@ -75,11 +78,58 @@ const APIService = {
     return res.data;
   },
 
-  logout: async () => {
+  logout:  () => {
     TokenService.accessToken.del();
     TokenService.refreshToken.del();
+    UserService.id.del();
+    UserService.role.del();
+    window.location.href = "/login";
   },
-
+  getUserInfo: async () => {
+    const phone = UserService.id.get();
+    const url = `/callcenter/${phone}`;
+    const res = await Request.get({
+      url: url,
+      useToken: true
+    });
+    const data = res.data;
+    UserService.role.set(data.item.role);
+    return data;
+  },
+  updateUserInfo: async (name, url_image, date_of_birth) => {
+    const phone = UserService.id.get();
+    const url = `/callcenter/${phone}`;
+    const body = {
+      name: name,
+      url_iamge: url_image,
+      date_of_birth: date_of_birth
+    }
+    const res = await Request.put({
+      url: url,
+      useToken: true,
+      body: body,
+    });
+    return res.data;
+  },
+  getRecentPhone: async (offset,limit) => {
+    const url = "/callcenter/request/phone";
+    const params = queryAllParamsFormat(
+      offset,
+      limit,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    );
+    const res = await Request.get({
+      url: url,
+      params:params,
+      useToken: true,
+    });
+    return res.data;
+  },
   getAddress: async (city, district, ward, street, home) => {
     const body = {
       city: city,
@@ -170,6 +220,16 @@ const APIService = {
     const res = await Request.post({ url: url, body: body, useToken: true });
     return res.data;
   },
+  sendRequest: async (requestId) => {
+    const url = `/callcenter/request/${requestId}`
+    const res = await Request.post({ url: url,useToken: true });
+    return res.data;
+  },
+  cancelRequest: async(requestId) => {
+    const url = `/callcenter/request/${requestId}`;
+    const res = await Request.put({url: url, useToken: true});
+    return res.data;
+  }
 };
 
 export default APIService;

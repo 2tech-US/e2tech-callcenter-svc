@@ -1,18 +1,18 @@
 grpc:
   server:
     port: 50056
-
 spring:
   application:
-    name: Call Center Service
+    name: Call Center Svc
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/callcenter_svc
+    username: root
+    password: secret
   jpa:
     show-sql: true
-  h2:
-    console:
-      enabled: true
-      path: /h2
-    datasource:
-      url: jdbc:h2:mem:callcenter-db
-      username: sa
-      password: password
-      driverClassName: org.h2.Driver
+    hibernate:
+      ddl-auto: create-drop
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect

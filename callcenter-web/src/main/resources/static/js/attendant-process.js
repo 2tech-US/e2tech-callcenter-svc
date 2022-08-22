@@ -1,8 +1,12 @@
 import APIService from "./utils/api_service.js";
+import UserService from "./utils/user_info_service.js";
 import { validateUserEmail, validateStringField } from "./utils/validate.js";
 
+UserService.accessCreatorSitePermission();
+
 const limit = 10;
-const page = 1;
+const offset = 1;
+let lastRequestResponse;
 
 let next_click = document.querySelectorAll(".next_button");
 let main_form = document.querySelectorAll(".main");
@@ -152,6 +156,9 @@ $(".fetch-address").click(async function () {
       limit: 20,
       search: fetchInfo.search,
     });
+    if(data.status != 200) {
+      throw new Error(data.error);
+    }
     appendDataList(data.items, fetchInfo.datalist);
   } catch (err) {
     console.log(err);
@@ -160,19 +167,19 @@ $(".fetch-address").click(async function () {
 
 $(".fetch-phone").click(async function () {
   try {
-    const data = await APIService.fetchRequests({ page: page, limit: limit });
+    const data = await APIService.getRecentPhone(offset,limit);
+
+    if(data.status != 200) {
+      throw new Error(data.error);
+    }
     if(!data.items)  return;
-    let phones = data.items.map(function (request) {
-      return request["phone"];
-    });
+    let phones = data.items;
     phones = phones.filter(function (value, index, self) {
       return self.indexOf(value) === index;
     });
     appendDataList(phones, "#phones");
   } catch (err) {
-    console.log(err);
-    alert(err);
-    window.location.href ="/home";
+    alert(err.message);
   }
 });
 
@@ -231,28 +238,67 @@ function handleSearch() {
 
 $("#show_result_button").click(function () {
   $("#result_phone").text(personalInfo.phone);
+  $("#result_name_2").text(personalInfo.name);
   $("#result_name").text(personalInfo.name);
+  $("#result_car").text($("input_car").val());
   $("#result_picking").text(addressToString(pickingAddress));
   $("#result_arriving").text(addressToString(arrivingAddress));
 });
+
 
 $("#create_request_button").click(async function () {
   try {
     const data = await APIService.createRequest(
       personalInfo.phone,
-      "moterbike",
+      $("#input_car").val(),
       "someguy",
       pickingAddress,
       arrivingAddress
     );
+    lastRequestResponse = data.item;
+    if(data.status != 200) {
+      throw new Error(data.error);
+    }
   } catch (err) {
-    console.log(err);
+    alert(err.message);
   }
 });
 
+
+$("#send_request_button").click(async function () {
+  if(!lastRequestResponse.arrivingAddress.location || !lastRequestResponse.pickingAddress.location) {
+    alert("Request not located");
+    return;
+  }
+  try {
+    const res = await APIService.sendRequest(lastRequestResponse.id);
+    if(res.status != 200) {
+      throw new Error(res.error);
+    }
+    alert("Sucess");
+  } catch (err) {
+    alert(err.message);
+  }
+});
+
+
 $("#reset_button").click(function () {
-  console.log("hello");
   formnumber = 0;
+  lastRequestResponse = null;
+  $("#input_name").val("");
+  $("#input_phone").val("");
+  $("#input_p_city").val("");
+  $("#input_p_district").val("");
+  $("#input_p_ward").val("");
+  $("#input_p_street").val("");
+  $("#input_p_home").val("");
+  $("#input_a_city").val("");
+  $("#input_a_district").val("");
+  $("#input_a_ward").val("");
+  $("#input_a_street").val("");
+  $("#input_a_home").val("");
   updateform();
   contentchange();
 });
+
+
