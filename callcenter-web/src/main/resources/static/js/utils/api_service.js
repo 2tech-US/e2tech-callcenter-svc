@@ -44,8 +44,8 @@ function queryAllParamsFormat(
 }
 
 const APIService = {
-  login: async (phone, password) => {
-    const url = "/auth/login/callcenter";
+  login: async (phone, password,role) => {
+    const url = `/auth/login/${role}`;
     const body = {
       phone: phone,
       password: password,
@@ -228,6 +228,33 @@ const APIService = {
   cancelRequest: async(requestId) => {
     const url = `/callcenter/request/${requestId}`;
     const res = await Request.put({url: url, useToken: true});
+    return res.data;
+  },
+  getHistory: async({role, phone,offset,limit, startDate, endDate}) => {
+    const url = `/booking/history`;
+    const params = queryAllParamsFormat(
+      offset,
+      limit,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    );
+    if (phone) {
+      params.set("phone", phone);
+    }
+    if (role) {
+      params.set("role", role);
+    }
+    if(startDate) {
+      params.set("start_date",startDate);
+    }
+    if(endDate) {
+      params.set("end_date",endDate);
+    }
+    const res = await Request.get({url: url,params:params,useToken:true});
     return res.data;
   }
 };

@@ -76,8 +76,7 @@ pageConfig.bindRowAction = () => {
       // TODO: call cancel request in booking svc
     } else {
       try {
-        const res = APIService.cancelRequest($(this).data("id"));
-        console.log(res.status);
+        const res = await APIService.cancelRequest($(this).data("id"));
         $(".table-load-trigger").trigger("click");
       } catch (err) {
         $(".table-load-trigger").trigger("click");

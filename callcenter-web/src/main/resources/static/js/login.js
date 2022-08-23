@@ -25,18 +25,17 @@ $("#send-forget-password").on("click", async (event) => {
 
 $("#login").click(async () => {
   $("#error").text("");
-
+  const role = $("#login").data("role");
   const email =   validateStringField("useremail", "error", 7, 15);
   if (!email) return;
   const password = $("#userpwd").val();
-  const rememberMe = $("#rememberMeCheck").is(":checked");
   const userInfo = {
     email: email,
     password: password,
   };
-
   try {
-    const res = await APIService.login(email, password);
+    console.log(role);
+    const res = await APIService.login(email, password,role);
     if(res.status === 200) {
       window.location.href = `/home`;
     }

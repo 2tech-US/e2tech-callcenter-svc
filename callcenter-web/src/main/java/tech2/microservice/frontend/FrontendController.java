@@ -46,4 +46,25 @@ public class FrontendController {
         model.addAttribute("isService",true);
         return "customer-care";
     }
+
+    @GetMapping("/admin/account")
+    public String getAdminAccountPage(Model model) {
+        model.addAttribute("pageTitle",PAGE_NAME + "Accounts");
+        model.addAttribute("isService",true);
+        return "not-implement";
+    }
+
+    @GetMapping("/admin/location")
+    public String getAdminLocationPage(Model model) {
+        model.addAttribute("pageTitle",PAGE_NAME + "Locations");
+        model.addAttribute("isService",true);
+        return "not-implement";
+    }
+
+    @GetMapping("/admin/history")
+    public String getAdminHistoryPage(Model model) {
+        model.addAttribute("pageTitle",PAGE_NAME + "Histories");
+        model.addAttribute("isService",true);
+        return "admin-history";
+    }
 }

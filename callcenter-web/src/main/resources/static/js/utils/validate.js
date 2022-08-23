@@ -68,3 +68,12 @@ export function validateDate(elementId, elementNotifyError) {
   $(`#${elementNotifyError}`).text("");
   return name;
 }
+
+export function validateDateWithCustomFormat(elementId, elementNotifyError,format) {
+  let name = $(`#${elementId}`).val().trim();
+
+  if (!validator.isDate(name, { format : format,delimiters :['/'] })) {
+    return false;
+  }
+  return name;
+}

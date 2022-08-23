@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CallCenterServer{
+public class    CallCenterServer{
     public static void main(String[] args) {
         SpringApplication.run(CallCenterServer.class, args);
     }

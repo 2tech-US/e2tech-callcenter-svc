@@ -23,10 +23,13 @@ public class CallCenterEmployee {
     private String phone;
 
     private String name;
-    private String urlImage;
+
+    @Builder.Default
+    private String urlImage = "";
+
     private Date birthDate;
 
-    @Pattern(regexp = "callcenter_creator|callcenter_locator|callcenter_manager", message = "Invalid Role")
+    @Pattern(regexp = "callcenter_creator|callcenter_locator|callcenter_manager|admin", message = "Invalid Role")
     private String role;
 
     @CreationTimestamp

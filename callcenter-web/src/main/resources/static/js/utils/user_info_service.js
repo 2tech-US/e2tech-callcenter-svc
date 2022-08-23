@@ -54,7 +54,7 @@ const UserinfoService = {
       window.location.href = "/home";
     }
   },
-  checkAdminRole: () => {
+  accessAdminSitePermission: () => {
     if(UserinfoService.role.get() != "admin"){
       alert("You Don't have permission to access this site");
       window.location.href = "/home";
