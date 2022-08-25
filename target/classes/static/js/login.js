@@ -1,5 +1,4 @@
 import APIService from "./utils/api_service.js";
-//import { cacheKey } from "./utils/common.js";
 import {validateUserEmail} from "./utils/validate.js";
 
 $(document).ready(async function () {
@@ -63,24 +62,19 @@ $("#login").click(async () => {
   }
 });
 
-
 $("#useremail").on("input propertychange", function (e) {
   e.preventDefault();
   validateUserEmail("useremail", "error");
 });
-
 
 $("#user-email-forget").on("input propertychange", function (e) {
   e.preventDefault();
   validateUserEmail("user-email-forget", "forget-error");
 });
 
-
-
 $("#password_show_hide").on("click", function (e) {
   const show_eye = $("#show_eye");
   const hide_eye = $("#hide_eye");
-
   const x = $("#userpwd");
 
   hide_eye.removeClass("d-none");

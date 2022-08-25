@@ -81,8 +81,6 @@ const pageConfig = {
       for (let i = 0; i < res.items.length; i++) {
         pageConfig.items.push(res.items[i]);
       }
-    // pageConfig.page = res["current-page"];
-    console.log(pageConfig.page);
     renderTable();
     renderPagination();
     $(".table-data").removeClass("table-loading");
@@ -98,11 +96,8 @@ const pageConfig = {
   async function initialLoading() {
     $(".table-load-trigger").prop("disabled", true);
     $(".table-load-trigger").toggleClass("btn-primary btn-secondary");
-    console.log("Render Table Head");
     renderHead();
-    console.log("Loading Table Data");
     await tableLoadData();
-    console.log("Disable Spin");
     $(".table-load-trigger").prop("disabled", false);
     $(".table-load-trigger").toggleClass("btn-primary btn-secondary");
   }
@@ -130,11 +125,5 @@ const pageConfig = {
     $(this).toggleClass("btn-primary btn-secondary");
     $(".table-load-trigger i").toggleClass("fa-spin");
   });
-  
-  // $(document).ready(async function () {
-  //   console.log("Initial Loading");
-  //   await initialLoading();
-  // });
-
 
   export default pageConfig;

@@ -11,7 +11,6 @@ export function validateUserEmail(elementId,elementNotifyError) {
 
     $(`#${elementNotifyError}`).text("");
     return email;
-
 }
 
 export function validateUserName(elementId,elementNotifyError) {

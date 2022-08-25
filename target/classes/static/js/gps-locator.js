@@ -42,18 +42,16 @@ const tableButtonEvent = {
   },
   save: async (self) => {
     try {
+      await APIService.updateAddress(locateEventVariable.pickingAddress,locateEventVariable.pickingAddress.location);
+      await APIService.updateAddress(locateEventVariable.arrivingAddress,locateEventVariable.arrivingAddress.location);
 
-    
-    await APIService.updateAddress(locateEventVariable.pickingAddress,locateEventVariable.pickingAddress.location);
-    await APIService.updateAddress(locateEventVariable.arrivingAddress,locateEventVariable.arrivingAddress.location);
+      $(self).parent().find(".inprogess").attr("hidden",true);
+      $(self).parent().find(".process").attr("hidden",false);
+      renderSelectRequest("#picking .select",emptyAddress);
+      renderSelectRequest("#arriving .select",emptyAddress);
+      locateEventVariable = {};
 
-    $(self).parent().find(".inprogess").attr("hidden",true);
-    $(self).parent().find(".process").attr("hidden",false);
-    renderSelectRequest("#picking .select",emptyAddress);
-    renderSelectRequest("#arriving .select",emptyAddress);
-    locateEventVariable = {};
-
-    $(".table-load-trigger").trigger("click");
+      $(".table-load-trigger").trigger("click");
     } catch(err) {
       console.log(err);
     }
@@ -63,56 +61,15 @@ const tableButtonEvent = {
 
 pageConfig.getItemsMethods =  async () => {
     return await APIService.fetchRequests({ limit: pageConfig.limit, page: pageConfig.page });
-  //   let pickingAddress = {
-  //     city: "Tp.HCM",
-  //     district: "Quan 1",
-  //     ward: "Phuong Cau Ong Lanh",
-  //     street: "Duong Tran Hung Dao",
-  //     home: "135B"
-  // };
-  // let arrivingAddress = {
-  //   city: "Tp.HCM",
-  //   district: "Quan 1",
-  //   ward: "Phuong Cau Ong Lanh",
-  //   street: "Duong Tran Hung Dao",
-  //   home: "135B",
-  // };
+};
 
-  //   const testItems = {
-  //     'total-pages': 3,
-  //     'current-page': 1,
-  //     'items': [
-  //       {   id:"1",
-  //           phone: "0908080572",
-  //           name: "John Smith",
-  //           pickingAddress: pickingAddress,
-  //           arrivingAddress: arrivingAddress
-  //       },
-  //       {
-  //           id: "2",
-  //           phone: "0908080571",
-  //           name: "John Smith2",
-  //           pickingAddress: pickingAddress,
-  //           arrivingAddress: arrivingAddress
-  //       },
-  //       {
-  //           id: "3",
-  //           phone: "0908080573",
-  //           name: "John Smith3",
-  //           pickingAddress: pickingAddress,
-  //           arrivingAddress: arrivingAddress
-  //       }
-  //   ],
-  //   };
-  //   return  testItems;
-  };
-  pageConfig.tableName = 'Customer Requests';
-  pageConfig.limit = 3;
-  
-  pageConfig.displayPage = 3;
+pageConfig.tableName = 'Customer Requests';
+pageConfig.limit = 3;
+
+pageConfig.displayPage = 3;
   
   
-  pageConfig.tableHead = 
+pageConfig.tableHead = 
     `<tr>
     <th scope="col">Phone</th>
     <th scope="col">Created At</th>
@@ -123,30 +80,30 @@ pageConfig.getItemsMethods =  async () => {
     `;
   
   
-  pageConfig.renderTableRow = (item) => {
+pageConfig.renderTableRow = (item) => {
     console.log(item);
     return `<tr>
-    <td class="align-middle">${item.phone}</td>
-    <td class="align-middle">${new Date(item.createAt['seconds'] * 1000).toLocaleString()}</td>
-    <td class="align-middle">${addressToString(item.pickingAddress)}</td>
-    <td class="align-middle">${addressToString(item.arrivingAddress)}</td>
-    <td class="align-middle">
-        <button class="table-btn manage-btn-edit process" data-click="edit"  data-id='${item.id}'>Edit</button>
-        <button class="table-btn manage-btn-send process" data-click="send" data-id='${item.id}'>Send</button>
+              <td class="align-middle">${item.phone}</td>
+              <td class="align-middle">${new Date(item.createAt['seconds'] * 1000).toLocaleString()}</td>
+              <td class="align-middle">${addressToString(item.pickingAddress)}</td>
+              <td class="align-middle">${addressToString(item.arrivingAddress)}</td>
+              <td class="align-middle">
+                  <button class="table-btn manage-btn-edit process" data-click="edit"  data-id='${item.id}'>Edit</button>
+                  <button class="table-btn manage-btn-send process" data-click="send" data-id='${item.id}'>Send</button>
 
-        <button hidden class="table-btn manage-btn-save inprogess" data-click="save" data-id='${item.id}'>Save</button>
-        <button hidden class="table-btn manage-btn-cancel inprogess" data-click="cancel"  data-id='${item.id}'>Cancel</button>
-    </td>
-  </tr>
-  `;
-  };
+                  <button hidden class="table-btn manage-btn-save inprogess" data-click="save" data-id='${item.id}'>Save</button>
+                  <button hidden class="table-btn manage-btn-cancel inprogess" data-click="cancel"  data-id='${item.id}'>Cancel</button>
+              </td>
+            </tr>
+          `;
+};
 
-  pageConfig.bindRowAction =  () => {
-    $(".table-btn").click(async function(e) {
-      let event = $(this).data("click");
-      await tableButtonEvent[event](this);
-    })
-  }
+pageConfig.bindRowAction =  () => {
+  $(".table-btn").click(async function(e) {
+    let event = $(this).data("click");
+    await tableButtonEvent[event](this);
+  })
+}
 
 await pageConfig.run();  
 

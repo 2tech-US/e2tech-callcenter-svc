@@ -54,18 +54,12 @@ function updateform(){
 }
 
 function progress_forward(){
-    // step_list.forEach(list => {
-
-    //     list.classList.remove('active');
-
-    // });
     getInfoProcess[formnumber-1](infos[formnumber-1]);
     num.innerHTML = formnumber+1;
     step_list[formnumber].classList.add('active');
 }
 
 function progress_backward(){
-
     resetInputField(infos[formnumber+1])
     let form_num = formnumber+1;
     step_list[form_num].classList.remove('active');
@@ -74,14 +68,13 @@ function progress_backward(){
 
 let step_num_content=document.querySelectorAll(".step-number-content");
 
- function contentchange(){
-     step_num_content.forEach(function(content){
-        content.classList.remove('active');
-        content.classList.add('d-none');
-     });
-     step_num_content[formnumber].classList.add('active');
-
- }
+function contentchange(){
+    step_num_content.forEach(function(content){
+    content.classList.remove('active');
+    content.classList.add('d-none');
+    });
+    step_num_content[formnumber].classList.add('active');
+}
 
 
 function validateform(){
@@ -97,13 +90,13 @@ function validateform(){
         }
     });
     return validate;
-
 }
 
 let personalInfo = {
     name: "",
     phone: ""
 }
+
 let pickingAddress = {
     city: "",
     district: "",
@@ -111,6 +104,7 @@ let pickingAddress = {
     street: "",
     home: ""
 };
+
 let arrivingAddress = {
     city: "",
     district: "",
@@ -118,7 +112,6 @@ let arrivingAddress = {
     street: "",
     home: ""
 };
-
 
 let infos = [personalInfo, pickingAddress,arrivingAddress];
 
@@ -155,29 +148,27 @@ const getInfoProcess =[
 
 $(".fetch-address").click(async function () {
     let fetchInfo = handleSearch();
-try {
-    const data = await APIService.searchAddress({page: 1, limit: 20,search:fetchInfo.search});
-    appendDataList(data.items,fetchInfo.datalist);
-} catch (err) {
-    console.log(err);
-}
-
+    try {
+        const data = await APIService.searchAddress({page: 1, limit: 20,search:fetchInfo.search});
+        appendDataList(data.items,fetchInfo.datalist);
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 $(".fetch-phone").click(async function () {
-try {
-    const data = await APIService.fetchRequests({page: page, limit: limit});
-    let phones = data.items.map(function(request) {
-        return request['phone'];
-    })
-    phones = phones.filter(function(value, index,self) {
-        return self.indexOf(value) === index;
-    })
-    appendDataList(phones,"#phones");
-} catch (err) {
-    console.log(err);
-}
-
+    try {
+        const data = await APIService.fetchRequests({page: page, limit: limit});
+        let phones = data.items.map(function(request) {
+            return request['phone'];
+        })
+        phones = phones.filter(function(value, index,self) {
+            return self.indexOf(value) === index;
+        })
+        appendDataList(phones,"#phones");
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 function appendDataList(options,datalistId) {
@@ -200,7 +191,7 @@ function handleSearch() {
     let result = {
         search: "",
         datalist: "",
-    };
+    }
     
     let city = $(`${id}_city`).val();
     if(!city) {
@@ -216,7 +207,6 @@ function handleSearch() {
     result.search += `,${district}`
     result.datalist=  "#wards";
 
-
     let ward = $(`${id}_ward`).val();
     if(!ward) {
         return result;
@@ -231,9 +221,7 @@ function handleSearch() {
     result.search += `,${street}`
     result.datalist=  "#homes";
     
-    
     return result;
-
 }
 
 $("#show_result_button").click(function() {

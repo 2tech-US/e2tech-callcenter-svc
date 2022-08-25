@@ -19,8 +19,7 @@ function queryAllParamsFormat(
   query
 ) {
   const searchParams = new URLSearchParams();
-  // searchParams.set("sort", sort);
-  // searchParams.set("order_by", order_by);
+
   if (page) {
     searchParams.set("offset", page);
   }
@@ -85,8 +84,8 @@ const APIService = {
       street: street,
       home: home,
     }
-    const url =  "/location/address" ;
-    const res =  await Request.post({url: url , body: body, useToken: false});
+    const url = "/location/address" ;
+    const res = await Request.post({url: url , body: body, useToken: false});
     return res.data;
   },
 
@@ -95,8 +94,8 @@ const APIService = {
       address: address,
       location: location,
     }
-    const url =  "/location/address" ;
-    const res =  await Request.put({url: url , body: body, useToken: false});
+    const url = "/location/address" ;
+    const res = await Request.put({url: url, body: body, useToken: false});
     return res.data;
   },
 
@@ -105,15 +104,15 @@ const APIService = {
     if(search) {
       searchParams.set("search",search);
     }
-    const url =  "/location/address/search" ;
-    const res =  await Request.get({url: url , params: searchParams, useToken: false});
+    const url = "/location/address/search" ;
+    const res = await Request.get({url: url, params: searchParams, useToken: false});
     return res.data;
   },
 
 
-  fetchRequest: async(id) => {
-    const url =  `/location/request/${id}` ;
-    const res =  await Request.get({url: url ,useToken: false});
+  fetchRequest: async (id) => {
+    const url = `/location/request/${id}` ;
+    const res = await Request.get({url: url, useToken: false});
     return res.data;
   },
 
@@ -122,8 +121,8 @@ const APIService = {
     if(phone) {
       searchParams.set("phone",phone)
     }
-    const url =  "/location/request" ;
-    const res =  await Request.get({url: url , params: searchParams, useToken: false});
+    const url = "/location/request" ;
+    const res = await Request.get({url: url , params: searchParams, useToken: false});
     return res.data;
   },
 
@@ -136,7 +135,7 @@ const APIService = {
       picking: picking,
     };
     const url = "/location/request";
-    const res = await Request.post({url:url , body: body,useToken: false });
+    const res = await Request.post({url: url, body: body, useToken: false});
     return res.data;
   },
 };
