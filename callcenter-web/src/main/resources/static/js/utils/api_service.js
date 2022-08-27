@@ -256,6 +256,14 @@ const APIService = {
     }
     const res = await Request.get({url: url,params:params,useToken:true});
     return res.data;
+  },
+  getListRequest: async({limit,offset,startDate,endDate}) => {
+    const url = "/booking/request";
+    const params = queryAllParamsFormat(offset,limit,null,null,null,null,null,null);
+    params.set("start_date",`2001/01/01`);
+    params.set("end_date",`2030/12/25`);
+    const res = await Request.get({url: url,params: params,useToken: true});
+    return res.data;
   }
 };
 

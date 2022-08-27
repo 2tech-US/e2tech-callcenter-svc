@@ -4,7 +4,6 @@ import UserService from "./utils/user_info_service.js";
 
 UserService.accessManagerSitePermission();
 
-
 pageConfig.getItemsMethods = async () => {
   return await APIService.fetchRequests({
     limit: pageConfig.limit,
@@ -52,23 +51,7 @@ pageConfig.tableQuery = `
 <input id="phone" name="search" type="text" placeholder="...">
 </div>`;
 
-pageConfig.renderTableRow = (item) => {
-  return `<tr>
-  <td class="align-middle">${item.phone}</td>
-  <td class="align-middle">${new Date(
-    item.createAt["seconds"] * 1000
-  ).toLocaleString()}</td>
-  <td class="align-middle">${addressToString(item.pickingAddress)}</td>
-  <td class="align-middle">${addressToString(item.arrivingAddress)}</td>
-  <td class="align-middle">
-      ${stateOfRequest(item)}
-  </td>
-  <td class="align-middle">
-    <button class="table-btn btn btn-danger" data-id=${item.id}>Cancel</button>
-  </td>
-</tr>
-`;
-};
+pageConfig.renderTableRow = renderCallCenterRequestItem;
 
 pageConfig.bindRowAction = () => {
   $(".table-btn").click(async function (e) {
@@ -96,7 +79,29 @@ $("#limit").change(async function (e) {
 
 $("#state").change(async function (e) {
   e.preventDefault();
-  pageConfig.state = $(this).val();
+  const state = $(this).val();
+  if (state != "sended") {
+    pageConfig.renderTableRow = renderCallCenterRequestItem;
+    pageConfig.getItemsMethods = async () => {
+      return await APIService.fetchRequests({
+        limit: pageConfig.limit,
+        page: pageConfig.page,
+        phone: pageConfig.phone,
+        state: pageConfig.state,
+      });
+    };
+  } else {
+    pageConfig.renderTableRow = renderBookingRequestItem;
+    pageConfig.getItemsMethods = async () => {
+      const data =  await APIService.getListRequest({
+        limit: pageConfig.limit,
+        offset: pageConfig.limit * (pageConfig.page - 1),
+      });
+      data.items = data.request;
+      return data;
+    };
+  }
+  pageConfig.state = state;
   await pageConfig.run();
 });
 
@@ -105,12 +110,49 @@ $("#phone").change(async function (e) {
   pageConfig.phone = $(this).val();
 });
 
-function addressToString(address) {
-  return `${address.home}, ${address.street}, ${address.ward}, ${address.district}, ${address.city}`;
+function renderBookingRequestItem(item) {
+  return `<tr>
+  <td class="align-middle">${item.phone}</td>
+  <td class="align-middle">${item.created_at}</td>
+  <td class="align-middle">${item.pick_up_location.latitude}, ${
+    item.pick_up_location.longitude
+  }</td>
+  <td class="align-middle">${item.drop_off_location.latitude}, ${
+    item.drop_off_location.longitude
+  }</td>
+  <td class="align-middle">
+      ${item.status}
+  </td>
+  <td class="align-middle">
+
+  </td>
+</tr>
+`;
+}
+
+function renderCallCenterRequestItem(item) {
+  return `<tr>
+  <td class="align-middle">${item.phone}</td>
+  <td class="align-middle">${new Date(
+    item.createAt["seconds"] * 1000
+  ).toLocaleString()}</td>
+  <td class="align-middle">${addressToString(item.pickingAddress)}</td>
+  <td class="align-middle">${addressToString(item.arrivingAddress)}</td>
+  <td class="align-middle">
+      ${stateOfRequest(item)}
+  </td>
+  <td class="align-middle">
+    <button class="table-btn btn btn-danger" data-id=${item.id}>Cancel</button>
+  </td>
+</tr>`;
 }
 
 function stateOfRequest(request) {
   if (request.pickingAddress.location && request.arrivingAddress.location)
     return "Located";
   else return "Not Located";
+}
+
+function addressToString(address) {
+  return `${address.home}, ${address.street}, ${address.ward}, ${address.district}, ${address.city}`;
 }
